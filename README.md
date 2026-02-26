@@ -1,23 +1,31 @@
-## Professor's repo → your laptop → your private GitHub → Databricks
-
-
-**To get new class materials (lectures, hw, etc.),from /Users/bryson *in terminal***: 
-
+### Professor's repo & your repo → your laptop → your private GitHub → Databricks
 	cd CSCI443_26S_AdvancedDataScience
-
-> repo folder on local machine
-		
-	git pull upstream main    
-
-> This pulls from the professor's repo into your local machine. 
-
+	git pull origin main
+	git pull upstream main
+	git push
+**then pull in databricks**
 
 ---
+###Step-by-step
+**From /Users/bryson *in terminal***: 
 
+	cd CSCI443_26S_AdvancedDataScience
 
 **Pull the changes from databricks to your local machine**:
 
 	git pull origin main
+
+> Pulls the changes made in databricks into your local machine.
+
+**To get new class materials (lectures, hw, etc.):**
+
+	git pull upstream main    
+
+> Pulls from the professor's repo into your local machine. 
+
+
+---
+
 
 **Then push it into your private repo, *in terminal***:
     
