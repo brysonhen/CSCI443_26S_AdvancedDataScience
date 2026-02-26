@@ -3,16 +3,17 @@
 
 **To get new class materials (lectures, hw, etc.),from /Users/bryson *in terminal***: 
 
-		cd CSCI443_26S_AdvancedDataScience
+	cd CSCI443_26S_AdvancedDataScience
 
 > repo folder on local machine
 		
-		git pull upstream main    
+	git pull upstream main    
 
 > This pulls from the professor's repo into your local machine. 
 
 
 ---
+
 
 **Pull the changes from databricks to your local machine**:
 
@@ -20,7 +21,7 @@
 
 **Then push it into your private repo, *in terminal***:
     
-		git push
+	git push
 
 > This pushes the new class materials to your private repo.
 
