@@ -14,6 +14,9 @@
 
 ---
 
+**Pull the changes from databricks to your local machine**:
+
+	git pull origin main
 
 **Then push it into your private repo, *in terminal***:
     
