@@ -1,0 +1,187 @@
+================================================================================
+CSCI 443 ADVANCED DATA SCIENCE — EXAM CHEATSHEET (2-page reference)
+================================================================================
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. DESCRIPTIVE STATISTICS — FORMULAS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Mean (sample or population, same formula for point estimate):
+  μ = x̄ = (1/n) Σᵢ xᵢ
+
+Sample standard deviation (use n-1):
+  s = √[ (1/(n-1)) Σᵢ (xᵢ − x̄)² ]
+
+Population standard deviation (use n):
+  σ = √[ (1/n) Σᵢ (xᵢ − μ)² ]
+
+Sample variance:  s² = (1/(n-1)) Σᵢ (xᵢ − x̄)²
+Population variance:  σ² = (1/n) Σᵢ (xᵢ − μ)²
+
+Range:  max − min
+Median:  middle value (or average of two middle); 50th percentile
+Mean Absolute Deviation (MAD):  (1/n) Σᵢ |xᵢ − x̄|
+Interquartile Range (IQR):  Q3 − Q1
+20th percentile:  linear interpolation between ordered values
+
+Trimmed mean:  remove proportion p from each end, then mean of rest (e.g. 10% trimmed).
+
+Box plot (Tukey):  whiskers extend to furthest point within 1.5×IQR of box edges.
+
+Examples:
+- Sample {4, 7, 9, 12, 15, -9}:
+    mean ≈ 6.33, sample variance ≈ 71.07, sample std dev ≈ 8.43.
+- If a dataset is {2, 3, 10}, the mean is 5, but the median is 3.
+  One large value (10) pulls the mean away from the middle more than the median.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2. DATA TYPES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Categorical:  categories (e.g. species, color, size {S,M,L})
+  • Ordinal:  natural order (e.g. S, M, L; months Jan–Dec)
+  • Nominal:  no natural order (e.g. Cat/Dog, ice cream flavors)
+
+Numeric:  counts, quantities, measurements (e.g. odd/even numbers).
+
+Examples:
+- {Cat, Dog} is categorical nominal (no natural ordering).
+- {January, February, March, April, May} is categorical ordinal
+  (natural order in the year).
+- The set of even numbers is numeric, not categorical.
+- The set of odd numbers is also numeric.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+3. PROBABILITY — RANDOM EXPERIMENTS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Trial:  one run of an experiment.  Outcome:  result of one trial.
+Sample space:  set of all possible outcomes (e.g. die → {1,2,3,4,5,6}).
+Event:  subset of sample space.
+Random variable X:  maps outcomes to real numbers.
+
+PMF (discrete):  P(X=i) ≥ 0,  Σᵢ P(X=i) = 1.
+PDF (continuous):  f(x) ≥ 0,  ∫ f(x)dx = 1;  P(a ≤ X ≤ b) = ∫ₐᵇ f(x)dx.
+
+Examples:
+- Fair die: sample space {1,2,3,4,5,6}, PMF P(X = i) = 1/6 for each face.
+- Bernoulli coin flip: sample space {Heads, Tails}, P(Heads) = p, P(Tails) = 1−p.
+
+Gaussian (normal) PDF:
+  f(x) = (1/(σ√(2π))) exp(−(x−μ)²/(2σ²))
+  Fully described by mean μ and standard deviation σ.
+
+Exponential PDF  f(x) = λ e^(-λx),  x ≥ 0  →  mean = 1/λ,  variance = 1/λ².
+  Example:  f(x)=0.1 e^(-0.1x)  →  mean = 10.
+
+Uniform on [a,b]:  mean = (a+b)/2,  variance = (b−a)²/12.
+
+Triangular (a ≤ x < c, c ≤ x ≤ b):  variance = (a²+b²+c²−ab−ac−bc)/18.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+4. COVARIANCE & CORRELATION (PEARSON)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Covariance (sample):
+  Cov(X,Y) = (1/(n−1)) Σᵢ (xᵢ − x̄)(yᵢ − ȳ)
+
+Pearson correlation:
+  r = Cov(X,Y) / (sₓ sᵧ)  =  Cov(X,Y) / (√(sₓ²) √(sᵧ²))
+  −1 ≤ r ≤ 1.  Positive:  X↑ Y↑.  Negative:  X↑ Y↓.  Uncorrelated:  r ≈ 0.
+  If one variable has zero variance, r is undefined (treat as 0 when asked).
+
+Examples:
+- If X increases when Y increases (points trending up on scatter plot),
+  correlation is positive (r > 0).
+- If X increases when Y decreases (points trending down),
+  correlation is negative (r < 0).
+- HW3 table example:
+  X: 1, 3, 5, 7 and Y: 8, 6, 5, 3 give a strong negative correlation
+  (r is close to −1).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+5. Z-SCORES, PHI (Φ), ERF — NORMAL DISTRIBUTION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Z-score:  Z = (X − μ) / σ   (number of std devs from mean)
+
+P(X < x) = Φ(z)  where z = (x−μ)/σ.  Φ(z) = CDF of standard normal.
+
+Tail probability (standard normal):
+  P(Z > z) = (1/2)[1 − erf(z/√2)];  by symmetry  P(Z < −z) = P(Z > z).
+  So  P(X < a) + P(X > b)  can use same z for |z| and double one tail if symmetric.
+
+Example:  μ=500, σ=100, John’s score 620  →  z = (620−500)/100 = 1.20;
+  P(X < 620) = Φ(1.20) ≈ 0.8849.
+
+Example (two-sided tail):
+- Rod length ~ Normal(100, 2). We want P(X < 96 or X > 104).
+  Convert to Z: (96−100)/2 = −2 and (104−100)/2 = 2.
+  Probability in both tails is about 4.5%.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+6. SAMPLE VS POPULATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Same data:  sample mean = population mean (same formula).
+Variance:  sample uses n−1 (s²), population uses n (σ²).
+Standard deviation:  s = √(sample variance),  σ = √(population variance).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+7. HISTOGRAMS & PLOTS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Histogram:  total n = sum of bar heights (frequencies).  Fraction ≥ value:  count in those bars / n.
+Median bounds:  find interval containing middle (e.g. 15th & 16th); bounds = that bin’s interval.
+
+Contour plot:  elevation between two contours is between their labels (e.g. 240 ft < A < 300 ft).
+
+Box plot:  box = Q1 to Q3, line inside = median; IQR = Q3−Q1; whiskers = 1.5×IQR rule (Tukey).
+
+Examples (HW3 style):
+- If bar counts in a histogram add to 30, there are 30 samples.
+- If 4 of those 30 samples are in bars at or above 1.75, then
+  P(X ≥ 1.75) = 4 / 30.
+- In the contour “two hills” map, point A might lie between the 240 ft
+  and 300 ft contour lines, so 240 < elevation(A) < 300.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+8. BIAS & ERROR (IDENTIFY TYPE AND EXPLAIN)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Random measurement error:  variation around true value, no consistent direction.
+Measurement bias:  systematic offset (e.g. miscalibrated instrument, wrong scale).
+Observer bias:  observer’s expectations affect how they record or interpret.
+Selection bias:  who is included (e.g. landline/daytime only, company employees).
+Non-response bias:  who responds (e.g. 30% response → respondents differ from non-respondents).
+Self-reporting bias:  respondents misreport (e.g. weight loss, desirable answers).
+Social desirability bias:  answers skewed toward what seems socially acceptable.
+
+Examples (based on HW2 scenarios):
+- Random measurement error: weighing the same object many times on a working
+  scale; readings vary slightly up and down around the true weight.
+- Measurement bias: laser rangefinder that always reads 20% too high so all
+  distances are off in the same direction.
+- Observer bias: police officer who expects crime in a neighborhood may
+  over-interpret neutral behavior as suspicious.
+- Selection bias: political poll using only landline numbers during daytime,
+  or recruiting only company employees for a medical trial.
+- Non-response bias: only 30% of students answer a survey; those who answer
+  may have systematically different opinions from those who ignore it.
+- Self-reporting / social desirability: weight-loss study where participants
+  self-report weight; they may exaggerate success or under-report weight.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+9. QUICK REFERENCE — NORMAL & UNIFORM
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Normal(μ, σ):  variance = σ².  E[X]=μ, Var(X)=σ².
+Uniform[a,b]:  mean = (a+b)/2,  Var = (b−a)²/12.
+Exponential(λ):  mean = 1/λ,  Var = 1/λ².
+
+ 
+================================================================================
+END OF CHEATSHEET
+
+To fit 2 pages in Word: use 2 columns, 9–10 pt font, narrow margins, or paste as-is and shrink to fit.
+================================================================================
