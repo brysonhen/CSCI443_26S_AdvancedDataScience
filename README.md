@@ -16,3 +16,7 @@ every time the professor pushes new lectures your workflow will be:
       
       git push origin main --force
       
+After running those commands, just pull in Databricks like normal — click the branch button → Pull.
+
+
+That's it. Then when you finish homework, commit and push from Databricks as usual, and when you need to submit, download the .ipynb from your GitHub and upload to Blackboard.
